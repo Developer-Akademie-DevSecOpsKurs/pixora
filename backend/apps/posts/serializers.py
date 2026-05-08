@@ -3,14 +3,12 @@ from __future__ import annotations
 import os
 from typing import Any
 
+from django.conf import settings
 from rest_framework import serializers
 
 from apps.users.serializers import UserSerializer
 
 from .models import Comment, Like, Post
-
-ALLOWED_IMAGE_EXTENSIONS = {'jpg', 'jpeg', 'png', 'gif'}
-MAX_IMAGE_SIZE_BYTES = 5 * 1024 * 1024  # 5 MB
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -91,12 +89,12 @@ class PostCreateSerializer(serializers.ModelSerializer):
 
     def validate_image(self, value: Any) -> Any:
         ext = os.path.splitext(value.name)[1].lstrip('.').lower()
-        if ext not in ALLOWED_IMAGE_EXTENSIONS:
+        if ext not in settings.ALLOWED_IMAGE_EXTENSIONS:
             raise serializers.ValidationError(
-                f'Unsupported image format. Allowed formats: {", ".join(ALLOWED_IMAGE_EXTENSIONS)}.'
+                f'Unsupported image format. Allowed formats: {", ".join(settings.ALLOWED_IMAGE_EXTENSIONS)}.'
             )
-        if value.size > MAX_IMAGE_SIZE_BYTES:
+        if value.size > settings.MAX_IMAGE_SIZE_MB * 1024 * 1024:
             raise serializers.ValidationError(
-                f'Image size must not exceed {MAX_IMAGE_SIZE_BYTES // (1024 * 1024)} MB.'
+                f'Image size must not exceed {settings.MAX_IMAGE_SIZE_MB} MB.'
             )
         return value

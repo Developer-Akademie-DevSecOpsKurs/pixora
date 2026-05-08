@@ -10,48 +10,56 @@ A full-stack Instagram clone built with Angular 21 and Django 6, featuring photo
 
 ## Prerequisites
 
-- [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/)
-- [pnpm](https://pnpm.io/installation) (for local frontend development without Docker)
-- [Python 3.12+](https://www.python.org/) (for local backend development without Docker)
+- [Python 3.12+](https://www.python.org/)
+- [Node.js 20+](https://nodejs.org/) and [pnpm](https://pnpm.io/installation)
 
 ## Quickstart
 
 1. **Clone the repository and enter the project directory**
 
-2. **Create a `.env` file** in the project root based on the example:
+2. **Create a `.env` file** from the example and set a strong `SECRET_KEY`:
 
    ```bash
    cp backend/.env.example backend/.env
    ```
 
-   Edit `backend/.env` and set a strong `SECRET_KEY`.
+   The default config uses **SQLite** (`USE_SQLITE=True`), so no database setup is needed locally.
 
-3. **Start all services with Docker Compose:**
+3. **Backend** (in one terminal):
 
    ```bash
-   docker-compose up --build
+   cd backend
+   python -m venv .venv
+   source .venv/bin/activate   # Windows: .venv\Scripts\activate
+   pip install -r requirements.txt
+   python manage.py migrate
+   python manage.py runserver
    ```
 
-4. **Seed the database with sample data** (optional):
+4. **Frontend** (in a second terminal):
 
    ```bash
-   docker-compose exec backend python manage.py seed_db
-   ```
-
-5. **Create a superuser** for the Django admin:
-
-   ```bash
-   docker-compose exec backend python manage.py createsuperuser
+   cd frontend
+   pnpm install
+   pnpm start
    ```
 
 ## Usage
 
-| Service    | URL                          |
-|------------|------------------------------|
-| Frontend   | http://localhost:4200        |
-| Backend API| http://localhost:8000/api    |
+| Service     | URL                         |
+|-------------|-----------------------------|
+| Frontend    | http://localhost:4200       |
 | Django Admin| http://localhost:8000/admin |
-| PostgreSQL | localhost:5432               |
+
+### Seed the database
+
+To populate the database with sample users and posts:
+
+```bash
+cd backend
+source .venv/bin/activate
+python manage.py seed_db
+```
 
 ### API Overview
 
@@ -70,24 +78,4 @@ A full-stack Instagram clone built with Angular 21 and Django 6, featuring photo
 | POST   | `/api/posts/{id}/like/`           | Like a post              |
 | POST   | `/api/posts/{id}/unlike/`         | Unlike a post            |
 | POST   | `/api/posts/{id}/comments/`       | Add a comment            |
-| DELETE | `/api/comments/{id}/`             | Delete own comment       |
-
-### Local Development (without Docker)
-
-**Backend:**
-```bash
-cd backend
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env  # edit as needed
-python manage.py migrate
-python manage.py runserver
-```
-
-**Frontend:**
-```bash
-cd frontend
-pnpm install
-pnpm start
-```
+| DELETE | `/api/posts/comments/{id}/`       | Delete own comment       |

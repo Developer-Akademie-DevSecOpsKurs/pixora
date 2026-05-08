@@ -26,7 +26,7 @@ class UserRegistrationTests(APITestCase):
             'username': 'testuser',
             'email': 'testuser@example.com',
             'password': 'StrongPass1!',
-            'password2': 'StrongPass1!',
+            'confirm_password': 'StrongPass1!',
         }
         response = self.client.post(self.register_url, payload, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -39,7 +39,7 @@ class UserRegistrationTests(APITestCase):
             'username': 'testuser2',
             'email': 'testuser2@example.com',
             'password': 'StrongPass1!',
-            'password2': 'DifferentPass!',
+            'confirm_password': 'DifferentPass!',
         }
         response = self.client.post(self.register_url, payload, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
@@ -49,7 +49,7 @@ class UserRegistrationTests(APITestCase):
             'username': 'testuser3',
             'email': 'testuser3@example.com',
             'password': 'short',
-            'password2': 'short',
+            'confirm_password': 'short',
         }
         response = self.client.post(self.register_url, payload, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
@@ -60,7 +60,7 @@ class UserRegistrationTests(APITestCase):
             'username': 'existing',
             'email': 'new@example.com',
             'password': 'StrongPass1!',
-            'password2': 'StrongPass1!',
+            'confirm_password': 'StrongPass1!',
         }
         response = self.client.post(self.register_url, payload, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

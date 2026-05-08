@@ -15,6 +15,7 @@ backend/.env
 backend/media/
 backend/staticfiles/
 db.sqlite3
+.python-version
 
 # Virtual environments
 .venv/

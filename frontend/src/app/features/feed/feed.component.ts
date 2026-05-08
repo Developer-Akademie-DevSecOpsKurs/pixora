@@ -142,7 +142,7 @@ export class FeedComponent implements OnInit {
 
   onCommentDeleted(postId: number, commentId: number): void {
     this.postService
-      .deleteComment(commentId)
+      .deleteComment(commentId, postId)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {

@@ -5,6 +5,8 @@ import { map } from 'rxjs/operators';
 import { ApiService } from './api.service';
 import { User, AuthResponse } from '../models/user.model';
 
+interface RefreshResponse { access: string; refresh?: string; }
+
 const ACCESS_TOKEN_KEY = 'instaclone_access';
 const REFRESH_TOKEN_KEY = 'instaclone_refresh';
 const USER_KEY = 'instaclone_user';
@@ -63,10 +65,10 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
-  refreshToken(): Observable<AuthResponse> {
+  refreshToken(): Observable<RefreshResponse> {
     const refresh = localStorage.getItem(REFRESH_TOKEN_KEY);
     return this.api
-      .post<AuthResponse>('/auth/refresh/', { refresh })
+      .post<RefreshResponse>('/auth/refresh/', { refresh })
       .pipe(
         tap((response) => {
           this.setTokens(response.access, response.refresh ?? refresh ?? '');

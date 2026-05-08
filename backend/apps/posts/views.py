@@ -72,7 +72,7 @@ class PostViewSet(viewsets.ModelViewSet):
         return PostSerializer
 
     def get_permissions(self):
-        if self.action == 'destroy':
+        if self.action in {'update', 'partial_update', 'destroy'}:
             return [IsOwnerOrReadOnly()]
         return [IsAuthenticated()]
 

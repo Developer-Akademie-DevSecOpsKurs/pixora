@@ -4,9 +4,8 @@ import { Router } from '@angular/router';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
-import { AuthResponse } from '../models/user.model';
 
-const AUTH_ENDPOINTS = ['/auth/login/', '/auth/register/'];
+const AUTH_ENDPOINTS = ['/auth/login/', '/auth/register/', '/auth/refresh/', '/auth/logout/'];
 
 let isRefreshing = false;
 const refreshTokenSubject = new BehaviorSubject<string | null>(null);
@@ -37,7 +36,7 @@ function handle401(
   refreshTokenSubject.next(null);
 
   return authService.refreshToken().pipe(
-    switchMap((response: AuthResponse) => {
+    switchMap((response) => {
       isRefreshing = false;
       refreshTokenSubject.next(response.access);
       return next(addToken(req, response.access));

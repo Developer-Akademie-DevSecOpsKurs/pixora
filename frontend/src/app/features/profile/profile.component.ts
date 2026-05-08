@@ -144,12 +144,17 @@ export class ProfileComponent implements OnInit {
 
     action.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => {
-        // userService updates currentProfile$ with optimistic update
-        this.userService.currentProfile$
-          .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe((updated) => {
-            if (updated) this.profile.set(updated);
-          });
+        this.profile.update((p) =>
+          p
+            ? {
+                ...p,
+                isFollowedByCurrentUser: !p.isFollowedByCurrentUser,
+                followerCount: p.isFollowedByCurrentUser
+                  ? (p.followerCount ?? 1) - 1
+                  : (p.followerCount ?? 0) + 1,
+              }
+            : p
+        );
       },
     });
   }

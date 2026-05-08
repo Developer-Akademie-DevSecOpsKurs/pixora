@@ -94,7 +94,7 @@
           @if (posts().length > 0) {
             <div class="posts-grid">
               @for (post of posts(); track trackByPost($index, post)) {
-                <div class="post-thumbnail" (click)="openPostDetail(post)" role="button" tabindex="0">
+                <div class="post-thumbnail" (click)="openPostDetail(post)" (keydown.enter)="openPostDetail(post)" (keydown.space)="openPostDetail(post)" role="button" tabindex="0">
                   @if (post.image) {
                     <img
                       [src]="post.image"

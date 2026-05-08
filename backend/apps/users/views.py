@@ -37,6 +37,9 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
     http_method_names = ['get', 'post', 'put', 'patch', 'head', 'options']
 
+    def create(self, request, *args, **kwargs):
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
     def get_serializer_class(self):
         if self.action == 'retrieve':
             return UserProfileSerializer
@@ -72,6 +75,16 @@ class UserViewSet(viewsets.ModelViewSet):
             serializer.save()
             return Response(UserProfileSerializer(request.user, context={'request': request}).data)
         serializer = UserProfileSerializer(request.user, context={'request': request})
+        return Response(serializer.data)
+
+    @action(detail=False, methods=['get'], permission_classes=[IsAuthenticated], url_path='search')
+    def search(self, request: Request) -> Response:
+        """Search users by username."""
+        query = request.query_params.get('q', '').strip()
+        if not query:
+            return Response([])
+        users = User.objects.filter(username__icontains=query).exclude(pk=request.user.pk)[:20]
+        serializer = UserSerializer(users, many=True, context={'request': request})
         return Response(serializer.data)
 
     @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated], url_path='follow')

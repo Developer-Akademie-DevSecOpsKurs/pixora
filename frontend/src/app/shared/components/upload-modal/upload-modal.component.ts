@@ -79,8 +79,8 @@ export class UploadModalComponent {
       this.errorMessage.set('Please select an image file.');
       return;
     }
-    if (file.size > 10 * 1024 * 1024) {
-      this.errorMessage.set('Image must be smaller than 10MB.');
+    if (file.size > 5 * 1024 * 1024) {
+      this.errorMessage.set('Image must be smaller than 5MB.');
       return;
     }
     this.errorMessage.set('');
