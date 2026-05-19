@@ -89,12 +89,10 @@ export class PostService {
     );
   }
 
-  deleteComment(commentId: number, postId?: number): Observable<void> {
-    return this.api.delete<void>(`/posts/comments/${commentId}/`).pipe(
+  deleteComment(commentId: number, postId: number): Observable<void> {
+    return this.api.delete<void>(`/posts/${postId}/comments/${commentId}/`).pipe(
       tap(() => {
-        if (postId !== undefined) {
-          this.updatePostCommentCount(postId, -1);
-        }
+        this.updatePostCommentCount(postId, -1);
       })
     );
   }

@@ -145,9 +145,12 @@ class PostViewSet(viewsets.ModelViewSet):
 class CommentViewSet(viewsets.ModelViewSet):
     """ViewSet for comments — supports destroy with IsOwnerOrReadOnly."""
 
-    queryset = Comment.objects.all().select_related('user', 'post')
     http_method_names = ['delete', 'head', 'options']
     permission_classes = [IsOwnerOrReadOnly]
+
+    def get_queryset(self):
+        post = get_object_or_404(Post, pk=self.kwargs['post_pk'])
+        return Comment.objects.filter(post=post).select_related('user', 'post')
 
     def get_serializer_class(self):
         return CommentSerializer

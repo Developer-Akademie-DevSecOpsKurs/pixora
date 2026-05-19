@@ -78,4 +78,4 @@ python manage.py seed_db
 | POST   | `/api/posts/{id}/like/`           | Like a post              |
 | POST   | `/api/posts/{id}/unlike/`         | Unlike a post            |
 | POST   | `/api/posts/{id}/comments/`       | Add a comment            |
-| DELETE | `/api/posts/comments/{id}/`       | Delete own comment       |
+| DELETE | `/api/posts/{id}/comments/{id}/`  | Delete own comment       |

@@ -113,7 +113,7 @@ export class PostDetailComponent implements OnInit {
 
   onDeleteComment(commentId: number): void {
     this.postService
-      .deleteComment(commentId)
+      .deleteComment(commentId, this.post().id)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: () => {
