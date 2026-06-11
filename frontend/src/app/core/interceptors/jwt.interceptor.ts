@@ -1,6 +1,5 @@
 import { HttpInterceptorFn, HttpRequest, HttpHandlerFn, HttpEvent } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
@@ -21,8 +20,7 @@ function addToken(req: HttpRequest<unknown>, token: string): HttpRequest<unknown
 function handle401(
   req: HttpRequest<unknown>,
   next: HttpHandlerFn,
-  authService: AuthService,
-  router: Router
+  authService: AuthService
 ): Observable<HttpEvent<unknown>> {
   if (isRefreshing) {
     return refreshTokenSubject.pipe(
@@ -51,7 +49,6 @@ function handle401(
 
 export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
-  const router = inject(Router);
 
   const isAuthEndpoint = AUTH_ENDPOINTS.some((endpoint) =>
     req.url.includes(endpoint)
@@ -67,7 +64,7 @@ export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
   return next(authenticatedReq).pipe(
     catchError((error) => {
       if (error.status === 401) {
-        return handle401(req, next, authService, router);
+        return handle401(req, next, authService);
       }
       return throwError(() => error);
     })
