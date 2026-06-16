@@ -82,6 +82,8 @@ class PostSerializer(serializers.ModelSerializer):
 class PostCreateSerializer(serializers.ModelSerializer):
     """Serializer for creating a post with image validation."""
 
+    image = serializers.ImageField(required=True, allow_null=False)
+
     class Meta:
         model = Post
         fields = ['id', 'image', 'caption']

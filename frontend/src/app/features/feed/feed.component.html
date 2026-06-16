@@ -61,7 +61,7 @@
             </button>
           </div>
         }
-      } @else if (!(isLoading$ | async)) {
+      } @else if ((isLoading$ | async) === false) {
         <!-- Empty State -->
         <div class="empty-state">
           <mat-icon>photo_library</mat-icon>
