@@ -6,8 +6,8 @@
   min-height: 100vh;
   padding: 24px 16px;
   background:
-    radial-gradient(ellipse 90% 60% at 50% -5%, rgba(131, 58, 180, 0.12) 0%, transparent 65%),
-    radial-gradient(ellipse 60% 40% at 90% 80%, rgba(252, 176, 69, 0.10) 0%, transparent 60%),
+    radial-gradient(ellipse 90% 60% at 50% -5%, rgba(8, 76, 97, 0.14) 0%, transparent 65%),
+    radial-gradient(ellipse 60% 40% at 90% 80%, rgba(15, 118, 110, 0.12) 0%, transparent 60%),
     var(--bg-base);
   gap: 14px;
 }
@@ -76,12 +76,12 @@
   background: var(--gradient) ;
   border: none ;
   color: #fff ;
-  box-shadow: 0 4px 20px rgba(124, 58, 237, 0.35) ;
+  box-shadow: 0 4px 20px rgba(8, 76, 97, 0.40) ;
   transition: box-shadow 200ms, opacity 200ms ;
   margin-top: 4px;
 
   &:hover:not(:disabled) {
-    box-shadow: 0 8px 32px rgba(131, 58, 180, 0.40) ;
+    box-shadow: 0 8px 32px rgba(8, 76, 97, 0.45) ;
   }
 
   &:disabled {
@@ -111,6 +111,6 @@
     font-weight: 600;
     color: var(--accent);
 
-    &:hover { color: #5b21b6; }
+    &:hover { color: var(--accent-dim); }
   }
 }

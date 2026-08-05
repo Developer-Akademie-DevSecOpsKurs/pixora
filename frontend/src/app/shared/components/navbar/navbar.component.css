@@ -51,7 +51,7 @@
   gap: 12px;
 
   a {
-    color: rgba(17, 24, 39, 0.60);
+    color: rgba(16, 42, 67, 0.82);
     display: flex;
     align-items: center;
     gap: 6px;
@@ -61,14 +61,14 @@
     font-weight: 500;
 
     &:hover {
-      color: rgba(17, 24, 39, 0.90);
+      color: rgba(16, 42, 67, 0.96);
       background: rgba(0, 0, 0, 0.05);
       text-decoration: none;
     }
 
     &.active-link {
       color: var(--accent);
-      background: rgba(124, 58, 237, 0.08);
+      background: rgba(15, 95, 116, 0.12);
       font-weight: 600;
     }
   }
@@ -96,12 +96,12 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  color: rgba(17, 24, 39, 0.75);
+  color: rgba(16, 42, 67, 0.86);
   border-radius: 10px;
   transition: background 200ms, color 200ms;
 
   &:hover {
-    color: rgba(17, 24, 39, 1);
+    color: rgba(16, 42, 67, 1);
   }
 }
 
@@ -113,7 +113,7 @@
   border: 2px solid transparent;
   background:
     linear-gradient(#fff, #fff) padding-box,
-    linear-gradient(135deg, #833ab4, #fcb045) border-box;
+    var(--gradient) border-box;
 }
 
 .username-label {
