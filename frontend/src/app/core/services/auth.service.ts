@@ -7,9 +7,9 @@ import { User, AuthResponse } from '../models/user.model';
 
 interface RefreshResponse { access: string; refresh?: string; }
 
-const ACCESS_TOKEN_KEY = 'instaclone_access';
-const REFRESH_TOKEN_KEY = 'instaclone_refresh';
-const USER_KEY = 'instaclone_user';
+const ACCESS_TOKEN_KEY = 'pixora_access';
+const REFRESH_TOKEN_KEY = 'pixora_refresh';
+const USER_KEY = 'pixora_user';
 
 @Injectable({
   providedIn: 'root',

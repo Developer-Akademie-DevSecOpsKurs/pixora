@@ -46,7 +46,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'instaclone.urls'
+ROOT_URLCONF = 'pixora.urls'
 
 TEMPLATES = [
     {
@@ -64,8 +64,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'instaclone.wsgi.application'
-ASGI_APPLICATION = 'instaclone.asgi.application'
+WSGI_APPLICATION = 'pixora.wsgi.application'
+ASGI_APPLICATION = 'pixora.asgi.application'
 
 _use_sqlite = os.environ.get('USE_SQLITE', 'False') == 'True'
 
@@ -75,7 +75,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     } if _use_sqlite else {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME', 'instaclone'),
+        'NAME': os.environ.get('DB_NAME', 'pixora'),
         'USER': os.environ.get('DB_USER', 'postgres'),
         'PASSWORD': os.environ.get('DB_PASSWORD', 'postgres'),
         'HOST': os.environ.get('DB_HOST', 'localhost'),

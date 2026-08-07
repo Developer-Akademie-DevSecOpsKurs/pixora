@@ -1,12 +1,16 @@
-# Instaclone
+# Pixora
 
-A full-stack Instagram clone built with Angular 21 and Django 6, featuring photo sharing, follows, likes, and comments.
+A full-stack Instagram-Like application built with Angular 21 and Django 6, featuring photo sharing, follows, likes, and comments.
 
 ## Table of Contents
 
-- [Prerequisites](#prerequisites)
-- [Quickstart](#quickstart)
-- [Usage](#usage)
+- [Pixora](#pixora)
+  - [Table of Contents](#table-of-contents)
+  - [Prerequisites](#prerequisites)
+  - [Quickstart](#quickstart)
+  - [Usage](#usage)
+    - [Seed the database](#seed-the-database)
+    - [API Overview](#api-overview)
 
 ## Prerequisites
 

@@ -1,5 +1,5 @@
 {
-  "name": "instaclone-frontend",
+  "name": "pixora-frontend",
   "version": "0.0.0",
   "scripts": {
     "start": "ng serve --host 0.0.0.0",

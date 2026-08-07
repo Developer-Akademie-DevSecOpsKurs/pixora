@@ -53,11 +53,11 @@
 /* Override FAB styling for gradient look */
 .fab-btn button {
   background: var(--gradient) ;
-  box-shadow: 0 4px 20px rgba(131, 58, 180, 0.40) ;
+  box-shadow: 0 4px 20px rgba(8, 76, 97, 0.40) ;
   transition: box-shadow 250ms, transform 250ms;
 
   &:hover {
-    box-shadow: 0 8px 32px rgba(131, 58, 180, 0.55) ;
+    box-shadow: 0 8px 32px rgba(8, 76, 97, 0.55) ;
   }
 }
 

@@ -10,7 +10,7 @@
 
   &:hover {
     border-color: var(--border-accent) ;
-    box-shadow: 0 6px 24px rgba(124, 58, 237, 0.12) ;
+    box-shadow: 0 6px 24px rgba(15, 95, 116, 0.18) ;
   }
 }
 
