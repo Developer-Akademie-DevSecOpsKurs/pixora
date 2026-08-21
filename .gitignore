@@ -12,7 +12,10 @@ build/
 .env
 *.env
 backend/.env
-backend/media/
+backend/media/*
+!backend/media/posts/
+backend/media/posts/*
+!backend/media/posts/seed/
 backend/staticfiles/
 db.sqlite3
 .python-version
