@@ -111,7 +111,7 @@ export class RegisterComponent {
       .subscribe({
         next: () => {
           this.isLoading.set(false);
-          this.router.navigate(['/feed']);
+          this.router.navigate(['/explore']);
         },
         error: (err) => {
           this.isLoading.set(false);

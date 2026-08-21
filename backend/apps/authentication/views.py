@@ -1,53 +1,29 @@
 from __future__ import annotations
 
-from django.contrib.auth import authenticate as django_authenticate, get_user_model
-from rest_framework import serializers, status
+from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework_simplejwt.exceptions import AuthenticationFailed, TokenError
+from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from apps.users.serializers import UserRegistrationSerializer, UserSerializer
 
-User = get_user_model()
 
-
-class EmailTokenObtainPairSerializer(TokenObtainPairSerializer):
-    """Accept email + password, return tokens + user data."""
-
-    username_field = 'email'
+class UsernameTokenObtainPairSerializer(TokenObtainPairSerializer):
+    """Standard username + password login, extended with the user payload."""
 
     def validate(self, attrs: dict) -> dict:
-        email = attrs.get('email', '')
-        password = attrs.get('password', '')
-
-        user = User.objects.filter(email__iexact=email).first()
-        if not user:
-            raise AuthenticationFailed('No active account found with the given credentials.')
-
-        # Django's ModelBackend authenticates by USERNAME_FIELD (username), not email
-        authenticated = django_authenticate(
-            request=self.context.get('request'),
-            username=user.username,
-            password=password,
-        )
-        if not authenticated or not authenticated.is_active:
-            raise AuthenticationFailed('No active account found with the given credentials.')
-
-        refresh = self.get_token(authenticated)
-        return {
-            'refresh': str(refresh),
-            'access': str(refresh.access_token),
-            'user': UserSerializer(authenticated, context=self.context).data,
-        }
+        data = super().validate(attrs)
+        data['user'] = UserSerializer(self.user, context=self.context).data
+        return data
 
 
-class EmailTokenObtainPairView(TokenObtainPairView):
-    serializer_class = EmailTokenObtainPairSerializer
+class UsernameTokenObtainPairView(TokenObtainPairView):
+    serializer_class = UsernameTokenObtainPairSerializer
 
 
 class RegisterView(APIView):

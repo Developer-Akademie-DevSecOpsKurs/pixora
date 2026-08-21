@@ -14,22 +14,19 @@
         </div>
       }
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
-        <!-- Email -->
+        <!-- Username -->
         <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Email</mat-label>
+          <mat-label>Username</mat-label>
           <input
             matInput
-            type="email"
-            formControlName="email"
-            placeholder="you@example.com"
-            autocomplete="email"
+            type="text"
+            formControlName="username"
+            placeholder="your.username"
+            autocomplete="username"
           />
-          <mat-icon matPrefix>email</mat-icon>
-          @if (loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched) {
-            <mat-error>Email is required</mat-error>
-          }
-          @if (loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched) {
-            <mat-error>Please enter a valid email</mat-error>
+          <mat-icon matPrefix>person</mat-icon>
+          @if (loginForm.get('username')?.hasError('required') && loginForm.get('username')?.touched) {
+            <mat-error>Username is required</mat-error>
           }
         </mat-form-field>
 

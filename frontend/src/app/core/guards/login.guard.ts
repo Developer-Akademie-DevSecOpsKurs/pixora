@@ -7,7 +7,7 @@ export const loginGuard: CanActivateFn = (_route, _state) => {
   const router = inject(Router);
 
   if (authService.getToken()) {
-    return router.createUrlTree(['/feed']);
+    return router.createUrlTree(['/explore']);
   }
 
   return true;

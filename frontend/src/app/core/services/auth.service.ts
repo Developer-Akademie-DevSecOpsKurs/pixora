@@ -28,9 +28,9 @@ export class AuthService {
     }
   }
 
-  login(email: string, password: string): Observable<AuthResponse> {
+  login(username: string, password: string): Observable<AuthResponse> {
     return this.api
-      .post<AuthResponse>('/auth/login/', { email, password })
+      .post<AuthResponse>('/auth/login/', { username, password })
       .pipe(
         tap((response) => {
           this.setTokens(response.access, response.refresh);
@@ -105,6 +105,11 @@ export class AuthService {
         this.currentUserSubject.next(user);
       })
     );
+  }
+
+  setCurrentUser(user: User): void {
+    this.cacheUser(user);
+    this.currentUserSubject.next(user);
   }
 
   getCurrentUser(): User | null {

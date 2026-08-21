@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { ApiService } from './api.service';
+import { AuthService } from './auth.service';
 import { User, UserProfile } from '../models/user.model';
 
 @Injectable({
@@ -8,6 +9,7 @@ import { User, UserProfile } from '../models/user.model';
 })
 export class UserService {
   private readonly api = inject(ApiService);
+  private readonly auth = inject(AuthService);
 
   private readonly currentProfileSubject =
     new BehaviorSubject<UserProfile | null>(null);
@@ -33,6 +35,7 @@ export class UserService {
     return this.api.patchFormData<UserProfile>('/users/me/', formData).pipe(
       tap((profile) => {
         this.currentProfileSubject.next(profile);
+        this.auth.setCurrentUser(profile);
       })
     );
   }

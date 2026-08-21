@@ -48,7 +48,7 @@ export class LoginComponent {
   readonly serverError = signal('');
 
   readonly loginForm = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
+    username: ['', [Validators.required]],
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
@@ -62,20 +62,20 @@ export class LoginComponent {
       return;
     }
 
-    const { email, password } = this.loginForm.value;
+    const { username, password } = this.loginForm.value;
     this.isLoading.set(true);
     this.serverError.set('');
 
-    this.authService.login(email!, password!).subscribe({
+    this.authService.login(username!, password!).subscribe({
       next: () => {
         this.isLoading.set(false);
-        this.router.navigate(['/feed']);
+        this.router.navigate(['/explore']);
       },
       error: (err) => {
         this.isLoading.set(false);
         const status = err?.status;
         if (status === 401 || status === 400) {
-          this.serverError.set('Incorrect email or password.');
+          this.serverError.set('Incorrect username or password.');
         } else if (status === 0) {
           this.serverError.set('Cannot reach the server. Check your connection.');
         } else {
