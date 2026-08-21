@@ -1,12 +1,12 @@
 @use '@angular/material' as mat;
+@use './theme-colors' as brand;
 
-/* ── Angular Material M3 Light Theme ────────────────────────────────── */
 html {
   @include mat.theme((
     color: (
       theme-type: light,
-      primary: mat.$blue-palette,
-      tertiary: mat.$cyan-palette,
+      primary: brand.$primary-palette,
+      tertiary: brand.$tertiary-palette,
     ),
     typography: Roboto,
     density: 0,
@@ -224,6 +224,31 @@ a {
   button { margin-left: auto; }
 }
 
+.mat-mdc-button,
+.mat-mdc-unelevated-button,
+.mat-mdc-raised-button,
+.mat-mdc-outlined-button {
+  .mdc-button__label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+}
+
+.mat-mdc-button,
+.mat-mdc-unelevated-button,
+.mat-mdc-raised-button,
+.mat-mdc-outlined-button,
+.mat-mdc-fab,
+.mat-mdc-mini-fab {
+  .mat-icon {
+    color: currentColor;
+  }
+
+  --mdc-circular-progress-active-indicator-color: currentColor;
+}
+
 /* ── Material Card Override ──────────────────────────────────────────── */
 .mat-mdc-card {
   background: var(--glass-bg) ;
@@ -256,6 +281,22 @@ a {
 /* Dialog title/content/actions */
 .mat-mdc-dialog-title { color: var(--text-primary) ; }
 .mat-mdc-dialog-content { color: var(--text-primary) ; }
+
+/* Post detail: the dialog content must be clipped to the rounded surface,
+   otherwise the square content corners peek out over the radius. */
+.post-detail-dialog-panel {
+  .mat-mdc-dialog-container,
+  .mat-mdc-dialog-container .mat-mdc-dialog-surface,
+  .mat-mdc-dialog-container .mdc-dialog__surface {
+    padding: 0 ;
+    overflow: hidden ;
+    border-radius: var(--radius-lg) ;
+  }
+
+  .mat-mdc-dialog-container .mdc-dialog__surface {
+    border: none ;
+  }
+}
 
 /* ── Menu ────────────────────────────────────────────────────────────── */
 .mat-mdc-menu-panel {

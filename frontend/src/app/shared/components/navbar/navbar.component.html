@@ -30,11 +30,13 @@
         class="user-menu-trigger"
         aria-label="User menu"
       >
-        @if (user.avatar) {
-          <img [src]="user.avatar" [alt]="user.username" class="nav-avatar" />
-        } @else {
-          <mat-icon>account_circle</mat-icon>
-        }
+        <span class="nav-avatar-slot">
+          @if (user.avatar) {
+            <img [src]="user.avatar" [alt]="user.username" class="nav-avatar" />
+          } @else {
+            <mat-icon class="avatar-fallback-icon">account_circle</mat-icon>
+          }
+        </span>
         <span class="username-label">{{ user.username }}</span>
         <mat-icon>arrow_drop_down</mat-icon>
       </button>
