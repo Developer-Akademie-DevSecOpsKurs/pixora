@@ -29,15 +29,15 @@
   font-size: 14px;
   line-height: 1.45;
   margin: 0 0 3px;
-  word-break: break-word;
+  overflow-wrap: anywhere;
   color: var(--text-primary);
 }
 
 .comment-username {
+  display: block;
   font-weight: 600;
   color: var(--text-primary);
   text-decoration: none;
-  margin-right: 6px;
   transition: color 150ms;
 
   &:hover {

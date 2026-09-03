@@ -80,14 +80,6 @@
   height: 20px;
 }
 
-/* Angular Material MDC wraps button content in .mdc-button__label (non-flex by default) */
-:host ::ng-deep .mdc-button__label {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-
 .spacer {
   flex: 1;
 }
@@ -103,9 +95,28 @@
   &:hover {
     color: rgba(16, 42, 67, 1);
   }
+
+}
+
+.nav-avatar-slot {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-fallback-icon {
+  font-size: 36px;
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
 }
 
 .nav-avatar {
+  /* Smaller than the slot: the image fills its box edge to edge, while the
+     account_circle glyph only draws a ~30px disc inside its 36px box. */
   width: 30px;
   height: 30px;
   border-radius: 50%;

@@ -5,7 +5,7 @@ import { loginGuard } from './core/guards/login.guard';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'feed',
+    redirectTo: 'explore',
     pathMatch: 'full',
   },
   {
@@ -48,6 +48,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'feed',
+    redirectTo: 'explore',
   },
 ];

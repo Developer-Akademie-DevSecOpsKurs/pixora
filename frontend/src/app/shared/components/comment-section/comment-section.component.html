@@ -19,12 +19,10 @@
           </a>
 
           <div class="comment-body">
-            <p class="comment-text">
-              <a [routerLink]="['/profile', comment.user.id]" class="comment-username">
-                {{ comment.user.username }}
-              </a>
-              {{ comment.text }}
-            </p>
+            <a [routerLink]="['/profile', comment.user.id]" class="comment-username">
+              {{ comment.user.username }}
+            </a>
+            <p class="comment-text">{{ comment.text }}</p>
             <span class="comment-time">{{ comment.createdAt | timeAgo }}</span>
           </div>
 
