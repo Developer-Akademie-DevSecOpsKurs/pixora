@@ -26,6 +26,8 @@ User = get_user_model()
 fake = Faker()
 
 SEED_PASSWORD = 'password123'
+ADMIN_USERNAME = 'armin_admin'
+ADMIN_EMAIL = 'armin.admin@example.com'
 SEED_IMAGE_DIR = Path(settings.MEDIA_ROOT) / 'posts' / 'seed'
 SEED_MANIFEST = SEED_IMAGE_DIR / 'manifest.json'
 SEED_AVATAR_DIR = SEED_IMAGE_DIR / 'avatars'
@@ -90,6 +92,22 @@ class Command(BaseCommand):
         buckets = self._load_image_buckets()
         # Each user owns one topic bucket: same topic for their avatar and posts.
         topics = [buckets[key] for key in sorted(buckets)]
+
+        self.stdout.write('Creating admin user...')
+        admin_user, created = User.objects.get_or_create(
+            username=ADMIN_USERNAME,
+            defaults={
+                'email': ADMIN_EMAIL,
+                'first_name': 'Armin',
+                'last_name': 'Admin',
+                'is_staff': True,
+                'is_superuser': True,
+            },
+        )
+        if created:
+            admin_user.set_password(SEED_PASSWORD)
+            admin_user.save(update_fields=['password'])
+        self.stdout.write(f'  Admin user: {ADMIN_USERNAME}')
 
         self.stdout.write('Creating users...')
         users: list[User] = []
@@ -172,7 +190,7 @@ class Command(BaseCommand):
 
         self.stdout.write(f'\nLogin credentials (all users share the password {SEED_PASSWORD}):\n')
         headers = ('USERNAME', 'PASSWORD')
-        rows = [(username, SEED_PASSWORD) for username in usernames]
+        rows = [(ADMIN_USERNAME, SEED_PASSWORD)] + [(username, SEED_PASSWORD) for username in usernames]
         widths = [max(len(str(cell)) for cell in column) for column in zip(headers, *rows)]
         self.stdout.write('  ' + '  '.join(h.ljust(w) for h, w in zip(headers, widths)))
         self.stdout.write('  ' + '  '.join('-' * w for w in widths))
